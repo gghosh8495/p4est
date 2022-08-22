@@ -251,7 +251,7 @@ int
 main (int argc, char **argv)
 {
   int                 mpiret;
-  int                 wrongusage;
+  int                 wrongusage; ;
   unsigned            crc;
   const char         *usage;
   mpi_context_t       mpi_context, *mpi = &mpi_context;
