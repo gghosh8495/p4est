@@ -25,6 +25,8 @@ jobs:
 
      - uses: actions/checkout@v2
        name: Checkout source code
+       with:
+        submodules: true
 
      - name: Install system dependencies
        run: brew install open-mpi ninja automake
