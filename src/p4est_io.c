@@ -48,9 +48,7 @@
                                             SC_CHECK_MPI_VERBOSE (errcode, user_msg);   \
                                             *cperrcode = errcode;                       \
                                             if (errcode) {                              \
-                                            if (fc->file != NULL) {                     \
-                                            SC_FREE (fc->file);                         \
-                                            }                                           \
+                                            p4est_file_error_cleanup (&fc->file);       \
                                             P4EST_FREE (fc);                            \
                                             p4est_file_error_code (errcode, cperrcode);\
                                             return NULL;}} while (0)
@@ -544,7 +542,7 @@ p4est_file_error_cleanup (sc_MPI_File * file)
   if ((*file)->file != sc_MPI_FILE_NULL) {
 #endif
     /* We do not use here the libsc closing function since we do not perform
-     * error checking in this functiont that is only called if we had already
+     * error checking in this function that is only called if we had already
      * an error.
      */
 #ifdef P4EST_ENABLE_MPIIO
