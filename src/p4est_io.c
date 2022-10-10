@@ -1232,6 +1232,7 @@ p4est_file_write_field (p4est_file_context_t * fc, sc_array_t * quadrant_data,
 
   /* write array data */
   //if (bytes_to_write > 0) {
+    count = 0;
     mpiret =
       sc_io_write_at_all (fc->file,
                           fc->accessed_bytes + write_offset +
