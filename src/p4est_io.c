@@ -1231,13 +1231,16 @@ p4est_file_write_field (p4est_file_context_t * fc, sc_array_t * quadrant_data,
   P4EST_HANDLE_MPI_COUNT_ERROR (count_error, fc, errcode);
 
   /* write array data */
-  mpiret =
-    sc_io_write_at_all (fc->file,
-                        fc->accessed_bytes + write_offset +
-                        P4EST_FILE_FIELD_HEADER_BYTES, quadrant_data->array,
-                        bytes_to_write, sc_MPI_BYTE, &count);
-  P4EST_FILE_CHECK_NULL (mpiret, fc, "Writing quadrant-wise", errcode);
-  P4EST_FILE_CHECK_COUNT (bytes_to_write, count, fc, errcode);
+  //if (bytes_to_write > 0) {
+    mpiret =
+      sc_io_write_at_all (fc->file,
+                          fc->accessed_bytes + write_offset +
+                          P4EST_FILE_FIELD_HEADER_BYTES, quadrant_data->array,
+                          bytes_to_write, sc_MPI_BYTE, &count);
+    printf ("bytes_to_write = %ld, count = %d\n", bytes_to_write, count);
+    P4EST_FILE_CHECK_NULL (mpiret, fc, "Writing quadrant-wise", errcode);
+    P4EST_FILE_CHECK_COUNT (bytes_to_write, count, fc, errcode);
+  //}
 
   /** We place the padding bytes write here because for the sequential
    * IO operations the order of fwrite calls plays a role.
